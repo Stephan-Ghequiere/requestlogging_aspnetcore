@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Tools for logging incomming and outgoing requests.</Description>
+    <Authors>Stephan Ghequiere</Authors>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AssemblyName>Digipolis.requestlogging</AssemblyName>
+    <PackageId>Digipolis.requestlogging</PackageId>
+    <PackageTags>Toolbox;requestlogging</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+  </PropertyGroup>
+
+</Project>
