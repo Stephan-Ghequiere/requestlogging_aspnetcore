@@ -90,7 +90,7 @@ Please note that the order in wich middleware is added is the order of execution
 
 ## Coupling with a Service Agent
 
-Starting from .NET Core v2.1, it is recommended to register HttpClient in serviceagents as a singleton using the HttpClientFactory. This package contains a DelegatingHandler which can be used to add the correlationheader to each outgoing request.
+Starting from .NET Core v2.1, it is recommended to register HttpClient in serviceagents as a singleton using the HttpClientFactory. This package contains a DelegatingHandler which can be used to log each outgoing request.
 
 ``` csharp
 
@@ -103,7 +103,7 @@ Starting from .NET Core v2.1, it is recommended to register HttpClient in servic
                     client.DefaultRequestHeaders.Add(header.Key, header.Value);
                 }
             })
-            .AddHttpMessageHandler<CorrelationIdHandler>()
+            .AddHttpMessageHandler<LoggingHandler>()
  ```
 
 ## Contributing
