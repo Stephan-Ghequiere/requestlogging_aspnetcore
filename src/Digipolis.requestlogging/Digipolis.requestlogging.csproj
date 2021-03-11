@@ -1,15 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <Description>Tools for logging incomming and outgoing requests.</Description>
     <Authors>Stephan Ghequiere</Authors>
-    <TargetFramework>netstandard1.6</TargetFramework>
-    <AssemblyName>Digipolis.requestlogging</AssemblyName>
-    <PackageId>Digipolis.requestlogging</PackageId>
-    <PackageTags>Toolbox;requestlogging</PackageTags>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>Digipolis.Requestlogging</AssemblyName>
+    <PackageId>Digipolis.Requestlogging</PackageId>
+    <PackageTags>Toolbox;Requestlogging</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <RootNamespace>Digipolis.Requestlogging</RootNamespace>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
 
 </Project>

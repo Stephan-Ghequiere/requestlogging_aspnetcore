@@ -1,22 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>requestlogging Toolbox unit tests.</Description>
+    <Description>Requestlogging Toolbox unit tests.</Description>
     <Authors>Stephan Ghequiere</Authors>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
-    <AssemblyName>Digipolis.requestlogging.UnitTests</AssemblyName>
-    <PackageId>Digipolis.requestlogging.UnitTests</PackageId>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>Digipolis.Requestlogging.UnitTests</AssemblyName>
+    <PackageId>Digipolis.Requestlogging.UnitTests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <PackageTags>Toolbox;requestlogging;Unit Tests</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Digipolis.requestlogging\Digipolis.requestlogging.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
@@ -31,6 +24,10 @@
   <ItemGroup>
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0-beta1-build3642" />
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Digipolis.requestlogging\Digipolis.Requestlogging.csproj" />
   </ItemGroup>
 
 </Project>
