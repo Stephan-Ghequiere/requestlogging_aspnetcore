@@ -9,6 +9,10 @@ Tools for logging incomming and outgoing requests.
 
 
 - [Installation](#installation)
+- [Usage](#usage)
+- [Coupling with a Service Agent](#coupling-with-a-service-agent)
+- [Contributing](#contributing)
+- [Support](#support)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -29,11 +33,11 @@ In Visual Studio you can also use the NuGet Package Manager to do this.
 Consistent and clear logging makes tracking down errors easier. 
 Logging incoming and outgoing REST calls can play a major role in finding why calls return errors.
 
-The toolbox provides a middleware for logging incoming requests and a delegating handler for logging outgoing requests.
+The toolbox provides a Middleware for logging incoming requests and a DelegatingHandler for logging outgoing requests.
 Both will log the the HttpMethod, Path and Headers on requests, on responses the HttpMethod, Path, StatusCode and elapsed time is logged.
-When using the middleware in conjunction with the delegating handler the middleware will also log the total time tha app was waiting on calls.
+When using the Middleware in conjunction with the DelegetingHandler the Middleware will also log the total time the app was waiting on calls.
 
-To use the request logging middelware two steps are needed.
+To use the RequestLoggingMiddelware two steps are needed.
 
 First register the service in the **ConfigureServices** method in the **Startup** class:
 
@@ -48,13 +52,13 @@ With custom options:
   services.AddRequestLogging(
                 incoming: options =>
                 {
-                    options.ExcludedPaths = new[] {"status", "swagger", "hangfire"};
+                    options.ExcludedPaths = new[] {"/status", "/swagger", "/hangfire"};
                     options.IncludeBody = true;
                     options.ExcludedBodyProperties = new[] {"photo", "userid"};
                 },
                 outgoing: options =>
                 {
-                    options.ExcludedPaths = new[] {"status"};
+                    options.ExcludedPaths = new[] {"/status"};
                 }
             );
 ```
@@ -78,7 +82,38 @@ ExcludedPaths | Any outgoing request with a path that contains any of the string
 Then add the middleware to the appication in the **Configure** method in the **Startup** class:
 
 ``` csharp
-  app.UseRequestlogging();
+  app.UseRequestLogging();
 ```
 
-Please note that the order in wich middleware is added is the order of execution of the middleware. Putting UseCorrelation() (with correlationheader required) before UseSwaggerUI() will make the SwaggerUI fail. UseCorrelation should come after UseSwaggerUI() and before UseMvc().
+Please note that the order in wich middleware is added is the order of execution of the middleware. UseRequestLogging should preferably be as early in the request pipeline as possible for accurate timing of the request and certainly before UseMvc().
+
+
+## Coupling with a Service Agent
+
+Starting from .NET Core v2.1, it is recommended to register HttpClient in serviceagents as a singleton using the HttpClientFactory. This package contains a DelegatingHandler which can be used to add the correlationheader to each outgoing request.
+
+``` csharp
+
+ services.AddHttpClient(nameof(SampleApi2Agent), (provider, client) =>
+            {
+                var settings = provider.GetService<IOptions<SampleApi2AgentSettings>>().Value;
+                client.BaseAddress = new Uri($"{settings.Url.Normalize()}");
+                foreach (var header in settings.Headers)
+                {
+                    client.DefaultRequestHeaders.Add(header.Key, header.Value);
+                }
+            })
+            .AddHttpMessageHandler<CorrelationIdHandler>()
+ ```
+
+## Contributing
+
+Pull requests are always welcome, however keep the following things in mind:
+
+- New features (both breaking and non-breaking) should always be discussed with the [repo's owner](#support). If possible, please open an issue first to discuss what you would like to change.
+- Fork this repo and issue your fix or new feature via a pull request.
+- Please make sure to update tests as appropriate. Also check possible linting errors and update the CHANGELOG if applicable.
+
+## Support
+
+Stephan Ghequiere (<stephan.ghequiere@digipolis.be>)
